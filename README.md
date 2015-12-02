@@ -1,3 +1,4 @@
 # waveSim
+* Karl's Wave Functions --- Function and script files
 * MATLAB App Functions --- GUI files
-* Karl's Functions --- Function and script files
+
