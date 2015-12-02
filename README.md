@@ -5,7 +5,7 @@
 * Wave_Simulator.mlappinstall --- MATLAB app installer
 
 [Development Materials]
-* waveGUI.m -------------------- GUI code specifying callbacks
+* waveGUI.m -------------------- GUI code specifying callbacks (WARNING: Has not been commented rigorously!)
 * waveGUI.fig ------------------- GUI layout
 * wave.m ------------------------- computational engine for discretizing wave equation
 * wavesplashbox.png --------- splash screen
