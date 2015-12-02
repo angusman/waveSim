@@ -1,4 +1,4 @@
-# waveSim
+# MATLAB App Functions
 1-dimensional MATLAB wave simulator
 
 [Stand-alone App]
