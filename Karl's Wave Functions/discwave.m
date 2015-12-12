@@ -44,7 +44,7 @@ for n = 3:tn
 end
 
 
-$ploting and such
+%ploting and such
 figure;
 for n = 1:tn
     plot(x, y(:, n), 'LineWidth', 4);

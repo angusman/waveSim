@@ -11,5 +11,5 @@ f3 = @(x) exp(-x.^2);
 g3 = @(x) 2 * x .* exp(-x.^2);
 
 %use the discwave function for actaully running simulations
-discwave(0, 10, 100, 0, 20, 0.1, 1, f0, g0, 'dir');
+discwave(0, 10, 100, 0, 20, 0.1, 1, f3, g3, 'dir');
 
