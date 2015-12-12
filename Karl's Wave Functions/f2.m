@@ -1,6 +1,6 @@
 function [ y ] = f2( x )
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+%triangle wave
+%   simple triangle wave nothing more
 
 a = abs(x);
 

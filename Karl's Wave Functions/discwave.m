@@ -2,94 +2,64 @@ function [ x, tn, y ] = discwave( a, b, N, t0, tf, dt, v, f0, g0, bc )
 %DISCWAVE Solve wave equation and simulate continuous time solutions.
 %   
 
+%converting params to intital values
 dx = (b - a)/N;
-x = zeros(N + 1, 1);
+x = zeros(N + 2, 1);
 t = t0:dt:tf;
 tn = length(t);
-y = zeros(N + 1, tn);
+y = zeros(N + 2, tn);
 c = (v^2 * dt^2)/(dx^2);
 
 
-for k = 1:(N + 1)
-    x(k) = a + (k-1) * dx;
+%setting the intial conditions of the wave
+for k = 1:(N + 2)
+    x(k) = a + k * dx;
     y(k, 1) = f0(x(k)) - dt * g0(x(k));
     y(k, 2) = f0(x(k));
 end
 
+%running the formula to produce the wave simulation
 for n = 3:tn
-    for k = 2:(N)
+    for k = 2:(N + 1)
         yknm = 2 * y(k, n - 1);
         y(k, n) = yknm - y(k, n - 2) + ...
             c * (y(k + 1, n - 1) - yknm + y(k - 1, n - 1));
     end
     
+    %switiching over boundary conditions
     switch bc
         case 'dir'
             y(1, n) = 0;
-            y(N + 1, n) = 0;
+            y(N + 2, n) = 0;
         case 'neu'
             y(1, n) = y(2, n);
-            y(N + 1, n) = y(N + 0, n);
+            y(N + 2, n) = y(N + 1, n);
         case 'nd'
             y(1, n) = y(2, n);
-            y(N + 1, n) = 0;
+            y(N + 2, n) = 0;
         case 'dn'
             y(1, n) = 0;
-            y(N + 1, n) = y(N + 0, n);
+            y(N + 2, n) = y(N + 1, n);
     end
 end
 
 
+$ploting and such
 figure;
-% plot(x,y(:,tn),'LineWidth',4)
-% title(['t = ' num2str(dt*(tn-1))])
-
-
-
-
-% % Q3 Plots
-% plot(x, y(:,50), 'LineWidth', 4);
-% axis([0 15 -1 1])
-
-% %Q2 Plots
-% subplot(2,2,1)
-% plot(x, y(:,10), 'LineWidth', 2);
-% title(['t = ' num2str(dt*10)])
-% axis([0 15 -1 1])
-% 
-% subplot(2,2,2)
-% plot(x, y(:,50), 'LineWidth', 2);
-% title(['t = ' num2str(dt*50)])
-% axis([0 15 -1 1])
-% 
-% subplot(2,2,3)
-% plot(x, y(:,100), 'LineWidth', 2);
-% title(['t = ' num2str(dt*100)])
-% axis([0 15 -1 1])
-% 
-% subplot(2,2,4)
-% plot(x, y(:,151), 'LineWidth', 2);
-% title(['t = ' num2str(dt*150)])
-% axis([0 15 -1 1])
-
-
-
-
-
-
 for n = 1:tn
-    plot(x, y(:, n), 'LineWidth', 1);
+    plot(x, y(:, n), 'LineWidth', 4);
     axis([-20 20 -1 1]);
     M(n) = getframe(gcf);
 end
 
+%producing a .avi movie is results
 ntimes = 3;
 fps = 1;
 movie(gcf, M, ntimes, fps);
-% 
-% myVideo = VideoWriter('q2.avi');
-% open(myVideo);
-% writeVideo(myVideo, M);
-% close(myVideo);
+
+myVideo = VideoWriter('q2.avi');
+open(myVideo);
+writeVideo(myVideo, M);
+close(myVideo);
 
 end
